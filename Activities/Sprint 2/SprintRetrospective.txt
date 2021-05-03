@@ -1,0 +1,18 @@
+#Sprint 2 Retrospective
+###What went well?
+* Aligning with the Scrum Guide
+* Improved team collaboration
+
+###What didn't go well?
+* Forming into feature teams is hard!
+* PBIs are often too large
+
+###What will we do to improve?
+* Use the hierarchical Product Backlog
+* Establish a definition of Done
+* Work in smaller batches, limiting WIP
+
+::: mermaid
+ graph LR;
+ A["Sprint 1 ✓"] -->B["Sprint 2 ✓"]
+:::

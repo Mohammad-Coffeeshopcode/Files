@@ -1,0 +1,20 @@
+#Sprint 4 Retrospective
+###What went well?
+* Getting more out of Azure Repos
+* Started using Azure Artifacts
+
+###What didn't go well?
+* Developers don't always run automated tests
+* New code is being missed by our testing
+
+###What will we do to improve?
+* Create a build pipeline to run our automated tests
+* Experiment with Continuous Integration
+* Install and use CatLight
+
+::: mermaid
+ graph LR;
+ A["Sprint 1 ✓"] -->B["Sprint 2 ✓"]
+ B["Sprint 2 ✓"] -->C["Sprint 3 ✓"]
+ C["Sprint 3 ✓"] -->D["Sprint 4 ✓"]
+:::

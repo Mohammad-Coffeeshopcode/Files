@@ -1,0 +1,54 @@
+trigger:
+  none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  buildProjects: '**/web.csproj'
+  testProjects: '**/*[Tt]ests/*.csproj'
+
+steps: 
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: $(buildProjects)
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: $(buildProjects)
+    arguments: --configuration $(buildConfiguration)
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: $(testProjects)
+    arguments: --configuration $(buildConfiguration)
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    projects: $(buildProjects)
+    arguments: --configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)
+    zipAfterPublish: True
+
+- task: DeleteFiles@1
+  displayName: Remove unnecessary files
+  inputs:
+    SourceFolder: $(build.artifactstagingdirectory)
+    Contents: 'blazor*.zip'
+    
+- task: PublishBuildArtifacts@1
+  displayName: Publish artifact
+  condition: succeededOrFailed()
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)
+    TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'

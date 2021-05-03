@@ -1,0 +1,23 @@
+#Sprint 6 Retrospective
+###What went well?
+* Automated building, testing, and releasing
+* Code being refactored to enable testability
+
+###What didn't go well?
+* Stakeholders are shocked at having so many new releases to review
+* Stakeholders contradicted each other with their needs
+* Technical debt is slowing down our ability to innovate
+
+###What will we do to improve?
+* Sign up for a LaunchDarkly trial account
+* Perform an A/B test to resolve stakeholder disagreements
+* Use SonarCloud to evaluate the code quality of our codebase
+
+::: mermaid
+ graph LR;
+ A["Sprint 1 ✓"] -->B["Sprint 2 ✓"]
+ B["Sprint 2 ✓"] -->C["Sprint 3 ✓"]
+ C["Sprint 3 ✓"] -->D["Sprint 4 ✓"]
+ D["Sprint 4 ✓"] -->E["Sprint 5 ✓"]
+ E["Sprint 5 ✓"] -->F["Sprint 6 ✓"]
+:::

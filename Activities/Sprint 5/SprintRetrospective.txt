@@ -1,0 +1,22 @@
+#Sprint 5 Retrospective
+###What went well?
+* CI build giving fast feedback to team
+* Working better as a team
+
+###What didn't go well?
+* Hard to test without production-like environment
+* Takes too long for our IT team to provision an environment
+
+###What will we do to improve?
+* Use release pipelines to manage and deploy our releases
+* Start putting more things in version control
+* Experiment with Azure App Services
+* Evaluate Continuous Delivery
+
+::: mermaid
+ graph LR;
+ A["Sprint 1 ✓"] -->B["Sprint 2 ✓"]
+ B["Sprint 2 ✓"] -->C["Sprint 3 ✓"]
+ C["Sprint 3 ✓"] -->D["Sprint 4 ✓"]
+ D["Sprint 4 ✓"] -->E["Sprint 5 ✓"]
+:::

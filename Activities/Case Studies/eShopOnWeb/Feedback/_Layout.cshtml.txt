@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Microsoft.eShopOnWeb</title>
+    <environment names="Development,Docker">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/app.css" />
+        <link rel="stylesheet" href="~/css/app.component.css" />
+        <link rel="stylesheet" href="~/css/shared/components/header/header.css" />
+        <link rel="stylesheet" href="~/css/shared/components/identity/identity.css" />
+        <link rel="stylesheet" href="~/css/shared/components/pager/pager.css" />
+        <link rel="stylesheet" href="~/css/basket/basket.component.css" />
+        <link rel="stylesheet" href="~/css/basket/basket-status/basket-status.component.css" />
+        <link rel="stylesheet" href="~/css/catalog/catalog.component.css" />
+        <link rel="stylesheet" href="~/css/orders/orders.component.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    @Html.Raw(JavaScriptSnippet.FullScript)
+
+    <script type="text/javascript">
+        function ShowSuggestion() {
+            document.getElementById('suggestionButton').style.display = 'none';
+            document.getElementById('suggestionForm').style.display = 'inline';
+        }
+        function HideSuggestion() {
+            document.getElementById('suggestionButton').style.display = 'inline';
+            document.getElementById('suggestionForm').style.display = 'none';
+        }
+        function MakeSuggestion() {
+
+            var suggestion = document.getElementById('txtSuggestion').value;
+            if (!suggestion) {
+                return;
+            }
+
+            var adsOrg = "https://dev.azure.com/<YOUR_ORGANIZATION>";
+            var adsToken = "<YOUR_PERSONAL_ACCESS_TOKEN>";
+            var adsProject = "<YOUR_PROJECT>";
+
+            var url = adsOrg + "/" + adsProject + "/_apis/wit/workitems/$Product Backlog Item?api-version=6.0";
+            var body = '[{"op": "add","path": "/fields/System.Title","value": "' + suggestion + '"},';
+                body += '{"op": "add","path": "/fields/System.Description","value": "Submitted through website"}]';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("PATCH", url, true);
+            xhr.setRequestHeader("Content-type", "application/json-patch+json");
+            xhr.setRequestHeader("Authorization", "Basic " + btoa("" + ":" + adsToken));
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+//                        alert("Thank you for your suggestion. We've added it to the Product Backlog.");
+                        document.getElementById('suggestionButton').style.display = 'none';
+                        document.getElementById('suggestionForm').style.display = 'none';
+                        document.getElementById('suggestionSubmitted').style.display = 'inline';
+
+                    } else {
+                        alert(xhr.status + " " + xhr.statusText);
+                    }
+                }
+            }
+            xhr.send(body);
+        }
+    </script>
+
+</head>
+<body>
+    <div class="esh-app-wrapper">
+        <header class="esh-app-header">
+            <div class="container">
+                <article class="row">
+                    <section class="col-lg-7 col-md-6 col-xs-12">
+                        <a asp-area="" asp-page="/Index">
+                            <img src="~/images/brand.png" alt="eShop On Web" />
+                        </a>
+                    </section>
+                    <partial name="_LoginPartial" />
+                </article>
+            </div>
+        </header>
+        @RenderBody()
+        <footer class="esh-app-footer footer">
+            <div class="container">
+                <article class="row" style="text-align:center; color:white;">
+                    <div id="suggestionButton" style="display:inline;cursor:pointer" onclick="ShowSuggestion();">
+                        Make a suggestion
+                    </div>
+                    <span id="suggestionForm" style="display:none">
+                        @Html.TextBox("txtSuggestion", "", new { ID = "txtSuggestion", style = "width: 400px;color: black; display:inline;" })
+                        <button id="btnSuggest" style="background-color: white; color: black; width: 90px; display:inline;" onclick="MakeSuggestion();">Suggest</button>
+                        <button id="btnCancel" style="background-color: white; color: black; width: 90px; display:inline;" onclick="HideSuggestion();">Cancel</button>
+                    </span>
+                    <div id="suggestionSubmitted" style="display:none;">
+                        Thank you for your suggestion!
+                    </div>
+                </article>
+            </div>
+        </footer>
+    </div>
+    <environment names="Development,Docker">
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+1. From Tools > NuGet Package Manager > Package Manager Console, run the following command:
+
+   install-Package LaunchDarkly.Client
+
+2. Replace the contents of \Web\Areas\Identity\Pages\Account\Login.cshtml with Login.cshtml.txt
+
+3. Replace the contents of \Web\Areas\Identity\Pages\Account\Login.cshtml.cs with Login.cshtml.cs.txt
+
+   Important: Replace <YOUR_SDK_KEY> with your actual LaunchDarkly SDK Key 

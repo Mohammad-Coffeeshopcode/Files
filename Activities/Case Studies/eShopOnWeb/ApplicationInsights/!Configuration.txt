@@ -1,0 +1,13 @@
+1. Add the following line to the bottom of all _ViewImports.cshtml files in the project:
+
+   @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+
+2. Replace the contents of \Web\Views\Shared\_Layout.cshtml with _Layout.cshtml.txt
+
+3. Replace the contents of \Web\appsettings.json with appsettings.json.txt
+
+   Important: Replace <YOUR_INSTRUMENTATION_KEY> with your actual Application Insights Instrumentation Key 
+
+4. Replace the contents of \Web\appsettings.Development.json with appsettings.Development.json.txt
+
+   Important: Replace <YOUR_INSTRUMENTATION_KEY> with your actual Application Insights Instrumentation Key 

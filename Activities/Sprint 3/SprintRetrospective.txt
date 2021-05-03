@@ -1,0 +1,18 @@
+#Sprint 3 Retrospective
+###What went well?
+* Product Backlog was more clear
+* Sprint planning and execution was more productive
+
+###What didn't go well?
+* Many dependencies exist in our code
+* Developers delayed their code integration
+
+###What will we do to improve?
+* Use Azure Artifacts to address our internal code dependencies
+* Explore adopting a full-blown internal open source model
+
+::: mermaid
+ graph LR;
+ A["Sprint 1 ✓"] -->B["Sprint 2 ✓"]
+ B["Sprint 2 ✓"] -->C["Sprint 3 ✓"]
+:::

@@ -1,0 +1,19 @@
+#Sprint 1 Retrospective
+###What went well?
+* Code written
+* Most tests passed
+
+###What didn't go well?
+* No automated tests
+* Too many dependencies
+
+###What will we do to improve?
+* Re-read the Scrum Guide
+* Organize into proper feature teams
+* Formalize Product Backlog Refinement
+* Research the Nexus Scaled Scrum Framework
+
+::: mermaid
+ graph LR;
+ A["Sprint 1 ✓"];
+:::

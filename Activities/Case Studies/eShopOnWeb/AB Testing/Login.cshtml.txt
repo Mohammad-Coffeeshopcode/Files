@@ -1,0 +1,89 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    // ViewData["Facebook"] = false;
+}
+
+<div class="container account-login-container">
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <section>
+                <form method="post">
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" onclick="ai_TrackEvent('DefaultAuthentication','Default');" class="btn btn-default">Log in</button>
+                        @if ((bool)@ViewData["Google"])
+                        {
+                            <img src="https://raw.githubusercontent.com/accentient/cdads/master/ContinueWithGoogle.png" width="250" style="margin-left:10px;cursor:pointer;" onclick="ai_TrackEvent('GoogleAuthentication','Google');" alt="Continue with Google" />
+                        }
+                        @if ((bool)@ViewData["Facebook"])
+                        {
+
+                            <img src="https://raw.githubusercontent.com/accentient/cdads/master/ContinueWithFacebook.png" width="250" style="margin-left:10px;cursor:pointer;" onclick="ai_TrackEvent('FacebookAuthentication','Facebook');" alt="Continue with Facebook" />
+                        }
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                    </div>
+                    <p>
+                        Note that for demo purposes you don't need to register and can login with these credentials:
+                    </p>
+                    <p>
+                        User:     <b>demouser@microsoft.com</b> OR <b>admin@microsoft.com</b>
+                    </p>
+                    <p>
+                        Password: <b>Pass@word1</b>
+                    </p>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        var sdkInstance = "appInsightsSDK"; window[sdkInstance] = "appInsights"; var aiName = window[sdkInstance], aisdk = window[aiName] || function (n) { var o = { config: n, initialize: !0 }, t = document, e = window, i = "script"; setTimeout(function () { var e = t.createElement(i); e.src = n.url || "https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js", t.getElementsByTagName(i)[0].parentNode.appendChild(e) }); try { o.cookie = t.cookie } catch (e) { } function a(n) { o[n] = function () { var e = arguments; o.queue.push(function () { o[n].apply(o, e) }) } } o.queue = [], o.version = 2; for (var s = ["Event", "PageView", "Exception", "Trace", "DependencyData", "Metric", "PageViewPerformance"]; s.length;)a("track" + s.pop()); var r = "Track", c = r + "Page"; a("start" + c), a("stop" + c); var u = r + "Event"; if (a("start" + u), a("stop" + u), a("addTelemetryInitializer"), a("setAuthenticatedUserContext"), a("clearAuthenticatedUserContext"), a("flush"), o.SeverityLevel = { Verbose: 0, Information: 1, Warning: 2, Error: 3, Critical: 4 }, !(!0 === n.disableExceptionTracking || n.extensionConfig && n.extensionConfig.ApplicationInsightsAnalytics && !0 === n.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)) { a("_" + (s = "onerror")); var p = e[s]; e[s] = function (e, n, t, i, a) { var r = p && p(e, n, t, i, a); return !0 !== r && o["_" + s]({ message: e, url: n, lineNumber: t, columnNumber: i, error: a }), r }, n.autoExceptionInstrumented = !0 } return o }(
+            {
+                instrumentationKey: "0f054e64-63fb-4b90-bcd2-566e71adc511"
+            }
+        ); (window[aiName] = aisdk).queue && 0 === aisdk.queue.length && aisdk.trackPageView({});
+    </script>
+
+    <script type="text/javascript">
+        function ai_TrackEvent(eventName, eventValue) {
+            var eventProperties = {};
+            eventProperties["value"] = eventValue;
+            appInsights.trackEvent({ name: eventName }, eventProperties, {});
+            return true;
+        }
+    </script>
+}
